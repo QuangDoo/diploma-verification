@@ -33,7 +33,7 @@ const useSignalRService = () => {
     return () => {
       newConnection.stop();
     };
-  }, []);
+  }, [url]);
 
   const onReceiveOnlineCount = (updateOnlineCount: (count: number) => void) => {
     connection?.on('ReceiveUpdateUserOnline', (count) => {
