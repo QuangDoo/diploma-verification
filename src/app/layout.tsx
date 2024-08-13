@@ -7,7 +7,6 @@ import { ConfigProvider } from 'antd';
 import vi from 'antd/locale/vi_VN';
 import dayjs from 'dayjs';
 import updateLocale from 'dayjs/plugin/updateLocale';
-import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ReactNode } from 'react';
 
@@ -36,12 +35,6 @@ dayjs.updateLocale('vi', {
 });
 
 const inter = Inter({ subsets: ['latin'] });
-
-export const metadata: Metadata = {
-  title: 'Cổng tra cứu văn bằng tốt nghiệp',
-  description:
-    'Cổng tra cứu văn bằng tốt nghiệp được phát triển bởi công ty Bitech, công ty hàng đầu về giải pháp ứng dụng trong giáo dục. Bitech cung cấp các giải pháp tiên tiến và hiện đại, giúp đơn giản hóa và tối ưu hóa quy trình tra cứu văn bằng, đảm bảo tính chính xác và bảo mật cao cho người dùng.',
-};
 
 const PRIMARY_COLOR = '#0000C5';
 const SHADOW = 'rgba(0, 0, 197, 0.5)';

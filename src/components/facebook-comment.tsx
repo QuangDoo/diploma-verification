@@ -8,8 +8,10 @@ type Props = {
 
 const FacebookComment = (props: Props) => {
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.fbAsyncInit = () => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       window.FB.init({
         appId: process.env.NEXT_PUBLIC_FACEBOOK_APP_ID,
