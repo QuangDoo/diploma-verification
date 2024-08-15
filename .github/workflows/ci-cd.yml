@@ -53,10 +53,15 @@ jobs:
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }}
 
       - name: Deploy to staging
+        env:
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
         run: |
-          docker stop diploma-verification-staging || true
-          docker rm diploma-verification-staging || true
-          docker run -d --name diploma-verification-staging -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }}
+          sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.STAGING_VPS_IP }} \
+          "docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}' && \
+           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }} && \
+           docker stop diploma-verification-staging || true && \
+           docker rm diploma-verification-staging || true && \
+           docker run -d --name diploma-verification-staging -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }}"
 
   deploy-production:
     runs-on: ubuntu-latest
@@ -70,7 +75,12 @@ jobs:
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }}
 
       - name: Deploy to production
+        env:
+          VPS_PASSWORD: ${{ secrets.VPS_PASSWORD }}
         run: |
-          docker stop diploma-verification-production || true
-          docker rm diploma-verification-production || true
-          docker run -d --name diploma-verification-production -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }}
+          sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.PRODUCTION_VPS_IP }} \
+          "docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}' && \
+           docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }} && \
+           docker stop diploma-verification-production || true && \
+           docker rm diploma-verification-production || true && \
+           docker run -d --name diploma-verification-production -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }}"
