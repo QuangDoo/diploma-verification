@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-const SERVICE = process.env.NEXT_PUBLIC_SERVICE;
+const BASE_URL = 'https://api-gateway.bitechco.link:5100';
+const SERVICE = 'VBCC_CongThongTin';
 const getOriginFromCookie = () => {
   if (typeof document !== 'undefined') {
     const matches = document.cookie.match(/(?:^|; )origin=([^;]*)/);
