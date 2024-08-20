@@ -1,5 +1,4 @@
 # Use the official Node.js image.
-# Use the current LTS version or specify a version if needed
 FROM node:current-alpine
 
 # Install pnpm globally
