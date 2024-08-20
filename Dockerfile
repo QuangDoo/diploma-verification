@@ -19,6 +19,9 @@ COPY . .
 # Copy the .env file into the container
 COPY .env .env
 
+# Ensure the .env file has the correct permissions
+RUN chmod 644 .env
+
 # Build the Next.js app
 RUN pnpm run build
 
