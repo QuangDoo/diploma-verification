@@ -16,6 +16,9 @@ RUN pnpm install
 # Copy the rest of the application code
 COPY . .
 
+# Copy the .env file into the container
+COPY .env .env
+
 # Build the Next.js app
 RUN pnpm run build
 

@@ -29,6 +29,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Inject environment variables
+        run: |
+          if [ "${GITHUB_REF}" == "refs/heads/main" ]; then
+            echo "${{ secrets.ENV_FILE_CONTENTS_PRODUCTION }}" > .env
+          else
+            echo "${{ secrets.ENV_FILE_CONTENTS_STAGING }}" > .env
+          fi
+
       - name: Build Next.js app
         run: pnpm run build
 
@@ -82,5 +90,5 @@ jobs:
           "docker login -u '${{ secrets.DOCKER_USERNAME }}' -p '${{ secrets.DOCKER_PASSWORD }}' && \
            docker pull ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }} && \
            docker stop diploma-verification-production || true && \
-           docker rm diploma-verification-production || true && \
+           docker rm diploma-verification-production || true and \
            docker run -d --name diploma-verification-production -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/diploma-verification:${{ github.sha }}"
